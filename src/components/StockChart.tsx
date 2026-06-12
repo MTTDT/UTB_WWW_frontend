@@ -26,7 +26,7 @@ export function StockChart({
   setPredictionPrep 
 }: { 
   stocks: Stock[], 
-  setPredictionPrep: React.Dispatch<React.SetStateAction<StockForPrediction>> 
+  setPredictionPrep: React.Dispatch<React.SetStateAction<StockForPrediction | null>> 
 }) {
   // --- Dragging & Selection State ---
   const [selectedStock, setSelectedStock] = useState<string | null>(null);
@@ -51,8 +51,8 @@ export function StockChart({
     ).sort((a, b) => a - b);
 
     return allStamps.map((stamp) => {
-      const dataPoint: {timestamp: number} = { timestamp: stamp };
-      
+      const dataPoint: { timestamp: number; [key: string]: number } = { timestamp: stamp };
+
       shiftedStocks.forEach((stock) => {
         const idx = stock.shiftedTimestamps.indexOf(stamp);
         if (idx !== -1) {

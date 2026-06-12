@@ -6,7 +6,7 @@ export function findDerivitive(stocks: Stock[]) {
         const d_stock = {
             ticker: stock.ticker,
             timestamps: stock.timestamps,
-            close_prices: [],
+            close_prices: [] as number[],
             open_prices: [],
             high_prices: [],
             low_prices: []
@@ -17,7 +17,7 @@ export function findDerivitive(stocks: Stock[]) {
             const dy = stock.close_prices[j+1] - price;
             const dx = stock.timestamps[j+1] - stock.timestamps[j];
 
-            d_stock.close_prices.push(dy/dx as number);
+            d_stock.close_prices.push(dy/dx );
         })
         derivitiveStocks.push(d_stock);
 

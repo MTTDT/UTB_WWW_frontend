@@ -6,9 +6,9 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
-export default function SingleSelector({selections, setSelection}: {selections: string[], setSelection: (selection: string) => void}) {
+  export default function SingleSelector({selections, setSelection}: {selections: string[], setSelection: (selection: string) => void}) {
     return(
-        <Select onValueChange={(value: string) => setSelection(value)}>
+        <Select onValueChange={(value) => value && setSelection(value as string)}>
             <SelectTrigger className="">
                 <SelectValue placeholder="" />
             </SelectTrigger>

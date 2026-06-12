@@ -41,7 +41,7 @@ export default function StocksContent() {
   
     const [refetch, setRefetch] = useState(false);
 
-    const [predictionPrep, setPredictionPrep] = useState<StockForPrediction>(null);
+    const [predictionPrep, setPredictionPrep] = useState<StockForPrediction | null>(null);
   
     const handleGetSelectedStocks = async () => {
       const data = await getStocksData(selectedStocks);
