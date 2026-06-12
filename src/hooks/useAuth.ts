@@ -1,8 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import type { AuthResponse, PublicUser, RegisterPayload  } from "@/types";
 import {
-  type AuthResponse,
-  type PublicUser,
-  type RegisterPayload,
+
   clearAuth,
   fetchMe,
   getStoredUser,
