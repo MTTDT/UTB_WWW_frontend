@@ -1,13 +1,13 @@
 
 import { useEffect, useState } from "react";
-import {get_hello} from "../api_req";
+import {getHello} from "../api_req";
 
 
 export default function HelloWorld() {
     const [message, setMessage] = useState("");
     useEffect(() => {
         async function fetchMessage() {
-            const msg = await get_hello();
+            const msg = await getHello();
             setMessage(msg);
         };
         fetchMessage();
