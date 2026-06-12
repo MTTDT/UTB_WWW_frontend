@@ -1,11 +1,4 @@
-/**
- * AuthDialog — single modal that hosts both Login and Register tabs.
- * Use this instead of separate LoginForm / RegisterForm pages.
- * 
- * Usage:
- *   const [open, setOpen] = useState(false);
- *   <AuthDialog open={open} onOpenChange={setOpen} />
- */
+
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { getGuestSessionId } from "../api_req";
@@ -34,7 +27,7 @@ interface Props {
 export function AuthDialog({ open, onOpenChange, guestTickers = [] }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[420px]">
+      <DialogContent className="sm:max-w-105">
         <DialogHeader>
           <DialogTitle className="text-xl">Welcome</DialogTitle>
           <DialogDescription>

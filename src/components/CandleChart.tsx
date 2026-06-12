@@ -47,7 +47,7 @@ export function StockCandleChart({ stock }: { stock: Stock }) {
         <CardDescription>Daily OHLC View</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[400px] w-full">
+        <ChartContainer config={chartConfig} className="h-100 w-full">
           <BarChart data={chartData} margin={{ top: 20 }}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis

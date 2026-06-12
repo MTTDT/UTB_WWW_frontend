@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getUsers, deleteUser, changeRole} from "../api_req";
 import type { PublicUser } from "@/types";
 import { useAuth } from "../hooks/useAuth";

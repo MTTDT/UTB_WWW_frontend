@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { AuthDialog } from "@/components/AuthDialog";
 import StockSelector from "@/components/StockSelector";
@@ -105,7 +105,7 @@ export default function StocksContent() {
                   <span className="text-xs text-muted-foreground">Range</span>
                   <SingleSelector selections={["1mo", "3mo", "6mo", "1y"]} setSelection={setRange} />
                 </div>
-                <div className="flex flex-col gap-1 flex-1 min-w-[140px]">
+                <div className="flex flex-col gap-1 flex-1 min-w-35">
                   <span className="text-xs text-muted-foreground">Symbol</span>
                   <Input
                     placeholder="e.g. AAPL"
