@@ -1,4 +1,3 @@
-// src/api/auth.ts
 const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
 export interface PublicUser {
@@ -23,7 +22,6 @@ const GUEST_SESSION_KEY = "guest_session_id";
 const TOKEN_KEY = "auth_token";
 const USER_KEY = "auth_user";
 
-/** Returns (creating if needed) a stable guest session UUID stored in localStorage. */
 export function getGuestSessionId(): string {
   let id = localStorage.getItem(GUEST_SESSION_KEY);
   if (!id) {
@@ -37,7 +35,6 @@ export function clearGuestSession(): void {
   localStorage.removeItem(GUEST_SESSION_KEY);
 }
 
-// ── Token helpers ─────────────────────────────────────────────────────────────
 
 export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
@@ -58,7 +55,6 @@ export function clearAuth(): void {
   localStorage.removeItem(USER_KEY);
 }
 
-// ── Base fetch with auth header ───────────────────────────────────────────────
 
 export async function apiFetch<T>(
   path: string,
@@ -75,7 +71,6 @@ export async function apiFetch<T>(
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   } else {
-    // Guests identify themselves via this header so the server can scope their session
     headers["X-Guest-Session"] = guestId;
   }
 
@@ -89,20 +84,16 @@ export async function apiFetch<T>(
   return res.json() as Promise<T>;
 }
 
-// ── Auth calls ────────────────────────────────────────────────────────────────
 
 export interface RegisterPayload {
   username: string;
   email: string;
   password: string;
-  /** Tickers from the guest session to migrate into the new account */
   guest_tickers?: Array<{ ticker: string; interval: string; range: string }>;
-  /** The guest session ID so the server can re-key the in-memory register */
   guest_session_id?: string;
 }
 
 export async function register(payload: RegisterPayload): Promise<AuthResponse> {
-  // Always attach the guest session id so the server can migrate state
   const enriched: RegisterPayload = {
     ...payload,
     guest_session_id: getGuestSessionId(),
@@ -114,7 +105,6 @@ export async function register(payload: RegisterPayload): Promise<AuthResponse> 
   });
 
   storeAuth(resp);
-  // Guest session is now owned by the user; clear the local key
   clearGuestSession();
   return resp;
 }
@@ -135,7 +125,6 @@ export async function logout(): Promise<void> {
     await apiFetch("/api/auth/logout", { method: "POST" });
   } finally {
     clearAuth();
-    // Re-create a fresh guest session after logout
     getGuestSessionId();
   }
 }

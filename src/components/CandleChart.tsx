@@ -19,7 +19,6 @@ import {
 import type { Stock } from "@/types"
 
 export function StockCandleChart({ stock }: { stock: Stock }) {
-  // 1. Reformat data for OHLC
   const chartData = stock.timestamps.map((stamp, i) => {
     const isBullish = stock.close_prices[i] >= stock.open_prices[i];
     return {
@@ -28,9 +27,7 @@ export function StockCandleChart({ stock }: { stock: Stock }) {
       high: stock.high_prices[i],
       low: stock.low_prices[i],
       close: stock.close_prices[i],
-      // The "range" for the body
       ohlc: [stock.open_prices[i], stock.close_prices[i]],
-      // The "range" for the wick
       wick: [stock.low_prices[i], stock.high_prices[i]],
       color: isBullish ? "#22c55e" : "#ef4444", // Green-500 : Red-500
     };

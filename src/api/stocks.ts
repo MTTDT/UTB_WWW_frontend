@@ -1,12 +1,9 @@
-// src/api/stocks.ts
-// Drop-in replacement for any existing stocks fetching code.
-// Uses apiFetch so auth headers / guest session headers are injected automatically.
+
 import { apiFetch } from "./auth";
 
 export interface StockRecord {
   ticker: string;
   close_prices: number[];
-  // … extend with other fields your backend returns
 }
 
 export interface TickerName {
@@ -15,7 +12,6 @@ export interface TickerName {
 }
 
 export interface PredictionResult {
-  // Shape depends on your regression_model output
   [key: string]: unknown;
 }
 

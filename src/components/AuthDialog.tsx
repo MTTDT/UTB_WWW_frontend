@@ -20,7 +20,6 @@ import { Loader2 } from "lucide-react";
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  /** Pass current guest tickers to offer migration on register */
   guestTickers?: Array<{ ticker: string; interval: string; range: string }>;
 }
 

@@ -28,7 +28,6 @@ export function StockChart({
   stocks: Stock[], 
   setPredictionPrep: React.Dispatch<React.SetStateAction<StockForPrediction | null>> 
 }) {
-  // --- Dragging & Selection State ---
   const [selectedStock, setSelectedStock] = useState<string | null>(null);
   const [targetStock, setTargetStock] = useState<string | null>(null);
   const [offsets, setOffsets] = useState<Record<string, number>>({});
@@ -37,7 +36,6 @@ export function StockChart({
   
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // --- Data Transformation ---
   const chartData = useMemo(() => {
     const shiftedStocks = stocks.map((stock) => ({
       ...stock,
@@ -63,7 +61,6 @@ export function StockChart({
     });
   }, [stocks, offsets]);
 
-  // --- Configuration ---
   const dynamicConfig = stocks.reduce((acc, stock, index) => {
     acc[stock.ticker] = {
       label: stock.ticker,
@@ -72,11 +69,9 @@ export function StockChart({
     return acc;
   }, {} as ChartConfig);
 
-  // --- Helper to Sync with Parent State ---
   const syncPredictionPayload = (target: string | null, currentOffsets: Record<string, number>) => {
     if (!target) return;
 
-    // Map all stocks to the features format: [ticker, day_offset]
     const features = stocks.filter((s) => s.ticker !== target).map((s): [string, number] => {
       const secondsOffset = currentOffsets[s.ticker] || 0;
       const dayOffset = Math.round(secondsOffset / 86400); // 86400 seconds in a day
@@ -86,11 +81,10 @@ export function StockChart({
     setPredictionPrep({
       target,
       features,
-      test_size: 0.8 // Default fallback test size
+      test_size: 0.8
     });
   };
 
-  // --- UI Handlers ---
   const handleTargetSelect = (ticker: string) => {
     const nextTarget = targetStock === ticker ? null : ticker;
     setTargetStock(nextTarget);
@@ -147,10 +141,8 @@ export function StockChart({
             <CardDescription>Historical Price Comparison</CardDescription>
           </div>
           
-          {/* Controls Panel */}
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col items-start sm:items-center lg:items-end w-full lg:w-auto chunk-controls">
             
-            {/* Target Selection UI */}
             <div className="flex flex-col lg:items-end gap-1.5">
               <span className="text-xs text-muted-foreground flex items-center gap-1">
                 <Target className="h-3 w-3 text-destructive" />
@@ -171,7 +163,6 @@ export function StockChart({
               </div>
             </div>
 
-            {/* Drag Selection UI */}
             <div className="flex flex-col lg:items-end gap-1.5">
               <span className="text-xs text-muted-foreground flex items-center gap-1">
                 <GripHorizontal className="h-3 w-3" />
