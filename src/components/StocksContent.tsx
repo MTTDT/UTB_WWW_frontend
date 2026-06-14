@@ -73,7 +73,7 @@ export default function StocksContent() {
         ...new Array(prediction.train_timestamps.length).fill(null),
         ...prediction.predicted_test,
       ];
-      setChartData([...(chartData || []),
+      setChartData([...(stocksData || []),
         { ticker: predictionPrep.target + "_trained", timestamps: allTimestamps, close_prices: fullTrainPrices, open_prices: [], high_prices: [], low_prices: [] },
         { ticker:  predictionPrep.target + "_predicted", timestamps: allTimestamps, close_prices: fullPredictPrices, open_prices: [], high_prices: [], low_prices: [] },
       ]);
@@ -174,11 +174,9 @@ export default function StocksContent() {
             </Card>
           )}
   
-          {/* ── Prediction Config ── */}
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-base">Prediction Setup</CardTitle>
-              <CardDescription>Configure regression target and features.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-3 items-end">
                
@@ -189,7 +187,6 @@ export default function StocksContent() {
           </Card>
         </main>
   
-        {/* ── Auth Dialog ── */}
         <AuthDialog open={authOpen} onOpenChange={setAuthOpen} />
       </div>
     );

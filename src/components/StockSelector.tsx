@@ -23,7 +23,7 @@ export default function StockSelector({ setSelectedStocks, refetch }: { setSelec
             setStocks(stockNames.map((stock) => stock.ticker))
         }
         fetchStockNames()
-    }, [refetch])
+    }, [refetch, setStocks])
 
     useEffect(() => {
         setSelectedStocks(value)
