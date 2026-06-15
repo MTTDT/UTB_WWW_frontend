@@ -9,9 +9,11 @@ import {
   ComboboxItem,
   ComboboxList,
   ComboboxValue,
+  
 } from "@/components/ui/combobox"
+import { Button } from "@/components/ui/button";
 
-import { getStockNames } from "@/api_req"
+import { getStockNames, deleteTicker } from "@/api_req"
 
 export default function StockSelector({ setSelectedStocks, refetch }: { setSelectedStocks: (stocks: string[]) => void , refetch: boolean}) {
   const [value, setValue] = useState<string[]>([])
@@ -28,6 +30,20 @@ export default function StockSelector({ setSelectedStocks, refetch }: { setSelec
     useEffect(() => {
         setSelectedStocks(value)
     }, [value, setSelectedStocks])
+
+    const handleRemove = async (ticker: string) => {
+      try {
+        await deleteTicker(ticker)
+        setValue((prev) => prev.filter((t) => t !== ticker))
+        setStocks((prev) => prev.filter((t) => t !== ticker))
+        const newValue = value.filter((t) => t !== ticker)
+        setSelectedStocks(newValue)
+      } catch (err) {
+        console.error("Failed to delete ticker:", err)
+      }
+    }
+
+    
 
 
 
@@ -53,6 +69,9 @@ export default function StockSelector({ setSelectedStocks, refetch }: { setSelec
           {(item) => (
             <ComboboxItem key={item} value={item}>
               {item}
+              <Button variant="outline" size="sm" className="ml-auto" type="button" onClick={(e) => {handleRemove(item); e.stopPropagation()}}>
+                remove
+              </Button>
             </ComboboxItem>
           )}
         </ComboboxList>

@@ -39,7 +39,7 @@ export default function StocksContent() {
     const [range, setRange] = useState("1mo");
     const [addingTicker, setAddingTicker] = useState(false);
   
-    const [refetch, setRefetch] = useState(false);
+    const [refetch, setRefetch] = useState(true);
 
     const [predictionPrep, setPredictionPrep] = useState<StockForPrediction | null>(null);
   

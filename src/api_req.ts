@@ -104,6 +104,15 @@ export function addNewTicker(ticker: string, interval: string, range: string): P
   });
 }
 
+export function deleteTicker(ticker: string): Promise<{ message: string }> {
+  return apiFetch<{ message: string }>(`/stocks/${ticker}`, {
+    method: "DELETE",
+  }).catch((err) => {
+    alert("Oops, ticker could not be deleted.");
+    throw err;
+  });
+}
+
 export function predict(predictionPrep: StockForPrediction, ): Promise<PredictionResult> {
   console.log("Sending prediction request with payload:", predictionPrep);
   return apiFetch<PredictionResult>("/predict", {
