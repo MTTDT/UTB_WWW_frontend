@@ -36,7 +36,7 @@ export default function StocksContent() {
   
     const [newTicker, setNewTicker] = useState("");
     const [interval, setIntervalVal] = useState("1d");
-    const [range, setRange] = useState("1mo");
+    const [range, setRange] = useState("3mo");
     const [addingTicker, setAddingTicker] = useState(false);
   
     const [refetch, setRefetch] = useState(true);
